@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - main
+
   workflow_dispatch:
 
 jobs:
@@ -15,19 +16,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup NodeJS
-        uses: actions/setup-node@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          node-version: 20
-          cache: npm
-          cache-dependency-path: starter/backend/Pipfile.lock.json
+          python-version: "3.11"
+
+      - name: Install Pipenv
+        run: pip install pipenv
 
       - name: Install dependencies
-        run: npm ci
+        run: pipenv install --dev
         working-directory: starter/backend
 
-      - name: Run lint
-        run: npm run lint
+      - name: Run Flake8
+        run: pipenv run flake8 .
         working-directory: starter/backend
 
   test:
@@ -38,19 +40,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup NodeJS
-        uses: actions/setup-node@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          node-version: 20
-          cache: npm
-          cache-dependency-path: starter/backend/Pipfile.lock.json
+          python-version: "3.11"
+
+      - name: Install Pipenv
+        run: pip install pipenv
 
       - name: Install dependencies
-        run: npm ci
+        run: pipenv install --dev
         working-directory: starter/backend
 
-      - name: Run tests
-        run: npm test
+      - name: Run Tests
+        run: pipenv run pytest
         working-directory: starter/backend
 
   build:
@@ -65,6 +68,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build Docker image
+      - name: Build Docker Image
         run: docker build -t backend-app .
         working-directory: starter/backend
