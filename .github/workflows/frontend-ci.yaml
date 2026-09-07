@@ -13,17 +13,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout code
       - name: Checkout code
       uses: actions/checkout@v4
 
-      # 2. Setup NodeJs
       - name: Setup NodeJS
       uses: actions/setup-node@v4
       with:
         node-version: 20
       
-      # 3. Restore npm cache
       - name: Restore npm cache
       uses: actions/cache@v4
       with:
@@ -31,11 +28,9 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: ${{ runner.os }}-node-
       
-      # 4. Install dependencies
       - name: Install dependencies
       run: npm install
 
-      # 5. Run lint
       - name: Run lint
       run: npm run lint
 
@@ -44,17 +39,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout code
       - name: Checkout code
       uses: actions/checkout@v4
 
-      # 2. Setup NodeJS
       - name: Setup NodeJS
       uses: actions/setup-node@v4
       with:
         node-version: 20
       
-      # 3. Restore npm cache
       - name: Restore npm cache
       uses: actions/cache@v4
       with:
@@ -62,11 +54,9 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: ${{ runner.os }}-node-
       
-      # 4. Install dependencies
       - name: Install dependencies
       run: npm install
 
-      # 5. Run tests
       - name: Run tests
       run: npm run test
   
@@ -79,17 +69,14 @@ jobs:
       - test
     
     steps:
-      # 1. Checkout code
       - name: Checkout code
       uses: actions/checkout@v4
 
-      # 2. Setup NodeJS
       - name: Setup NodeJS
       uses: actions/setup-node@v4
       with:
         node-version: 20
       
-      # 3. Restore npm cache
       - name: Restore npm cache
       uses: actions/cache@v4
       with:
@@ -97,14 +84,11 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: ${{ runner.os }}-node-
 
-      # 4. Install dependencies
       - name: Install dependencies
       run: npm install
 
-      # 5. Run tests
       - name: Run tests
       run: npm run test
 
-      # 6. Build application using Docker
       - name: Build Docker image
       run: docker build -t frontend-app .
