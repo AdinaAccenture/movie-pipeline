@@ -10,7 +10,7 @@ on:
 env:
   AWS_REGION: us-east-1
   ECR_REPOSITORY: frontend-app
-  EKS_CLUSTER_NAME: frontend-eks
+  EKS_CLUSTER_NAME: movie-eks
   IMAGE_TAG: ${{ github.sha }}
 
 jobs:
@@ -26,6 +26,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
           cache-dependency-path: starter/frontend/package-lock.json
 
       - name: Install Dependencies
@@ -48,6 +49,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
           cache-dependency-path: starter/frontend/package-lock.json
 
       - name: Install Dependencies
@@ -84,6 +86,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build Docker Image
+        working-directory: starter/frontend
         run: |
           docker build \
             --build-arg REACT_APP_MOVIE_API_URL=${{ secrets.REACT_APP_MOVIE_API_URL }} \
