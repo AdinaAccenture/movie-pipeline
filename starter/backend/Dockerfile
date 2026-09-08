@@ -21,4 +21,4 @@ RUN cd /app && pipenv install --system --deploy --verbose
 
 COPY . /app
 
-CMD flask --app . run --host=0.0.0.0 --port=5000
+CMD flask --app __init__:app run --host=0.0.0.0 --port=5000
