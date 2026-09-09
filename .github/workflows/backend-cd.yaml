@@ -9,8 +9,8 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  ECR_REPOSITORY: backend-app
-  EKS_CLUSTER_NAME: movie-eks
+  ECR_REPOSITORY: backend
+  EKS_CLUSTER_NAME: cluster
   IMAGE_TAG: ${{ github.sha }}
 
 jobs:
